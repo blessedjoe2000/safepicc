@@ -1,0 +1,34 @@
+"use client";
+
+import { UserButton, useAuth } from "@clerk/nextjs";
+import Link from "next/link";
+import React from "react";
+import { Button } from "../ui/button";
+
+const Navbar = () => {
+  const { userId } = useAuth();
+  return (
+    <div className="bg-main-teal flex justify-around items-center h-20">
+      <div>SAFE PICC</div>
+
+      <div className="flex justify-between gap-10">
+        <Link href="/">Home</Link>
+        <Link href="/">Services</Link>
+        <Link href="/about">About Us</Link>
+        <Link href="/">Contact Us</Link>
+        <Link href="/admin/courses">Courses</Link>
+      </div>
+      <div>
+        {userId ? (
+          <UserButton />
+        ) : (
+          <Link href="/sign-in">
+            <Button>Sign in</Button>
+          </Link>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
