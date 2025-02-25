@@ -17,7 +17,7 @@ const AdminLayout = ({ children }) => {
       <Navbar />
       <div className="flex-1 flex">
         <Sidebar />
-        <div className="flex-1 flex">{children}</div>
+        <div className="flex-1 ">{children}</div>
       </div>
     </div>
   );

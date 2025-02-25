@@ -6,7 +6,7 @@ import React from "react";
 import { Button } from "../ui/button";
 
 const Navbar = () => {
-  const { userId } = useAuth();
+  const { isSignedIn } = useAuth();
   return (
     <div className="bg-main-teal flex justify-around items-center h-20">
       <div>SAFE PICC</div>
@@ -19,7 +19,7 @@ const Navbar = () => {
         <Link href="/admin/courses">Courses</Link>
       </div>
       <div>
-        {userId ? (
+        {isSignedIn ? (
           <UserButton />
         ) : (
           <Link href="/sign-in">
