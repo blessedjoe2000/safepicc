@@ -1,37 +1,43 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { db } from "@/lib/db";
 import { useAuth } from "@clerk/nextjs";
+import axios from "axios";
 import Link from "next/link";
-import React from "react";
+import { useEffect, useState } from "react";
 
 const AdminCourses = () => {
   const { userId } = useAuth();
+  const [allCourses, setAllCourses] = useState([]);
 
   if (!userId) {
     return redirect("/sign-in");
   }
 
-  const allCourses = db.course.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  useEffect(() => {
+    const getAllCourses = async () => {
+      try {
+        const response = await axios.get("/api/courses");
+        setAllCourses(response.data);
+      } catch (error) {
+        console.log("error retrieving courses :>> ", error);
+      }
+    };
+    getAllCourses();
+  }, []);
 
   return (
     <div className="px-6 py-4">
-      <Link href="/admin/create-course">
+      <Link href="/admin/courses/create-course">
         <Button>Create New Course</Button>
-
-        <div className="mt-10">
-          {allCourses.map((course) => (
-            <Link href={`/admin/courses/${course.id}/basic`} key={course.id}>
-              {course.title}
-            </Link>
-          ))}
-        </div>
       </Link>
+      <div className="mt-10">
+        {allCourses.map((course) => (
+          <Link href={`/admin/courses/${course.id}/basic`} key={course.id}>
+            {course.title}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };

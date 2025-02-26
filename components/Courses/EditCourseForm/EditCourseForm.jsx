@@ -13,24 +13,32 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Combobox } from "@/components/ComboBox";
+import { Combobox } from "@/components/ComboBox/ComboBox";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import RichEditor from "@/components/RichEditor/RichEditor";
+import FileUploader from "@/components/FileUploader/FileUploader";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Title is required " }),
-  categoryId: z.string().min(1, { message: "Category is required" }),
+  categoryId: z.string().min(2, { message: "Category is required " }),
+  description: z.string().optional(),
+  imageUrl: z.string().optional(),
+  price: z.coerce.number().optional(),
 });
 
-const CreateCourseForm = ({ categories }) => {
+const EditCourseForm = ({ course, categories, courseBanner }) => {
   const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      categoryId: "",
+      title: course.title,
+      categoryId: course.categoryId,
+      description: course.description || "",
+      imageUrl: course.imageUrl || "",
+      price: course.price || undefined,
     },
   });
 
@@ -45,7 +53,6 @@ const CreateCourseForm = ({ categories }) => {
     }
     console.log("The values", values);
   }
-
   return (
     <div className="p-10">
       <p className="text-lg font-semi-bold">
@@ -86,6 +93,39 @@ const CreateCourseForm = ({ categories }) => {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Description</FormLabel>
+                <FormControl>
+                  <RichEditor
+                    placeholder="What does this course entails? "
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Course Image</FormLabel>
+                <FormControl>
+                  <FileUploader
+                    value={field.value || ""}
+                    onChange={(url) => field.onChange(url)}
+                    endpoint="courseBanner"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <Button type="submit">Submit</Button>
         </form>
       </Form>
@@ -93,4 +133,4 @@ const CreateCourseForm = ({ categories }) => {
   );
 };
 
-export default CreateCourseForm;
+export default EditCourseForm;

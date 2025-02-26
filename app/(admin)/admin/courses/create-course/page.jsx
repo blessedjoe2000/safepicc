@@ -1,4 +1,4 @@
-import CreateCourseForm from "@/components/Courses/CreateCourseForm/Index";
+import CreateCourseForm from "@/components/Courses/CreateCourseForm/CreateCourseForm";
 import { db } from "@/lib/db";
 
 const CreateCourse = async () => {

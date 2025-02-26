@@ -1,7 +1,7 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar.jsx";
+import Navbar from "@/components/Navbar/Navbar";
+import Sidebar from "@/components/Sidebar.jsx/Sidebar.jsx";
 import { useAuth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import React from "react";

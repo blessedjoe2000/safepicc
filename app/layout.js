@@ -1,7 +1,7 @@
 import React from "react";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import ToasterProvider from "@/components/Provider/ToasterProvider";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Safe Picc",
@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body>
-          <ToasterProvider />
+          <Toaster position="top-right" />
           {children}
         </body>
       </html>
