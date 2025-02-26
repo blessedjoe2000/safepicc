@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const FileUploader = ({ value, onChange, endpoint }) => {
   return (
-    <div className="flex gap-10">
+    <div className="flex gap-10 items-center">
       {value && (
         <Image
           src={value}

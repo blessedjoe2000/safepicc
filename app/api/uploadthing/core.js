@@ -16,8 +16,8 @@ export const ourFileRouter = {
   })
     .middleware(handleAuth)
     .onUploadComplete(async ({ file, metadata }) => {
-      console.log("Upload complete:", file.ufsUrl);
-      console.log("user id:", metadata.userId);
       return { fileUrl: file.ufsUrl };
     }),
 };
+
+export default ourFileRouter;
