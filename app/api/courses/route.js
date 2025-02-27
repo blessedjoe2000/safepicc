@@ -48,30 +48,3 @@ export async function GET(req) {
     });
   }
 }
-
-// export async function PATCH(req, ctx) {
-//   const { id } = ctx.params;
-//   console.log("id :>> ", id);
-
-//   const body = await req.json();
-//   console.log("body :>> ", body);
-//   try {
-//     const { userId } = await auth();
-
-//     if (!userId) {
-//       return new Response(JSON.stringify("Unauthorized"), { status: 401 });
-//     }
-
-//     const course = await db.course.findUnique(id);
-
-//     if (!course) {
-//       return new Response(JSON.stringify(""), { status: 401 });
-//     }
-
-//     return new Response(JSON.stringify(course), { status: 200 });
-//   } catch (error) {
-//     return new Response(JSON.stringify("Error creating course", error), {
-//       status: 500,
-//     });
-//   }
-// }

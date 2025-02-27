@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import RichEditor from "@/components/RichEditor/RichEditor";
 import FileUploader from "@/components/FileUploader/FileUploader";
+import Link from "next/link";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Title is required " }),
@@ -28,7 +29,7 @@ const formSchema = z.object({
   price: z.coerce.number().optional(),
 });
 
-const EditCourseForm = ({ course, categories, courseBanner }) => {
+const EditCourseForm = ({ course, categories }) => {
   const router = useRouter();
 
   const form = useForm({
@@ -44,14 +45,13 @@ const EditCourseForm = ({ course, categories, courseBanner }) => {
 
   async function onSubmit(values) {
     try {
-      const response = await axios.post("/api/courses", values);
-      router.push(`/admin/courses/${response.data.id}/basic`);
-      toast.success(`New course created successfully`);
+      await axios.patch(`/api/courses/${course.id}`, values);
+      toast.success(`course updated successfully`);
+      router.push("/admin/courses");
     } catch (error) {
-      console.log("failed creating new course :>> ", error);
-      return toast.error("Something went wrong");
+      console.log("failed updating course :>> ", error);
+      return toast.error("Something went wrong...");
     }
-    console.log("The values", values);
   }
   return (
     <div className="p-10">
@@ -100,9 +100,10 @@ const EditCourseForm = ({ course, categories, courseBanner }) => {
               <FormItem className="flex flex-col">
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <RichEditor
-                    placeholder="What does this course entails? "
+                  <textarea
                     {...field}
+                    className="border p-2 rounded-md w-full h-32" // Adjust styling as needed
+                    placeholder="What does this course entail?"
                   />
                 </FormControl>
                 <FormMessage />
@@ -126,7 +127,27 @@ const EditCourseForm = ({ course, categories, courseBanner }) => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <FormField
+            control={form.control}
+            name="price"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Price (USD)</FormLabel>
+                <FormControl>
+                  <Input type="number" placeholder="$39.99" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="flex gap-5">
+            <Link href="/admin/courses">
+              <Button type="button" variant="outline">
+                Cancel
+              </Button>
+            </Link>
+            <Button type="submit">Save</Button>
+          </div>
         </form>
       </Form>
     </div>
