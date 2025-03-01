@@ -13,8 +13,8 @@ const Navbar = () => {
 
       <div className="flex justify-between gap-10">
         <Link href="/">Home</Link>
-        <Link href="/">Services</Link>
-        <Link href="/about">About Us</Link>
+        <Link href="/services">Services</Link>
+        <Link href="/education">Education</Link>
         <Link href="/">Contact Us</Link>
         <Link href="/admin/courses">Courses</Link>
       </div>

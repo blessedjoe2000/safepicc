@@ -124,6 +124,12 @@ body,
   }
 }
 
+h1,
+h2,
+h3 {
+  font-weight: 600;
+}
+
 .cl-formButtonPrimary {
   background-color: #48a6a7;
 }
@@ -133,8 +139,7 @@ body,
 
 .homevideo {
   width: 100%;
-  height: 100vh;
-  position: relative; /* Ensure proper positioning */
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -143,18 +148,37 @@ body,
 
 video {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  /* height: 100%; */
+  object-fit: contain;
 }
 
 .welcome-heading {
-  font-size: clamp(2.5rem, 5vw, 5rem);
+  /* font-size: clamp(2.5rem, 5vw, 5rem); */
   font-weight: 700;
+  font-size: 5rem;
+
+  @media (max-width: 1024px) {
+    font-size: 3.5rem;
+    line-height: 3.5rem;
+  }
+  @media (max-width: 640px) {
+    font-size: 2rem;
+    line-height: 2rem;
+  }
 }
 
 .welcome-text {
-  font-size: clamp(1.2rem, 2.5vw, 2.5rem);
   font-weight: 500;
+  font-size: 2.5rem;
+
+  @media (max-width: 1025px) {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  @media (max-width: 640px) {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
 }
 
 .video-content {
@@ -171,4 +195,36 @@ video {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
   left: 0;
+}
+
+span {
+  font-weight: 700;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+/* .subheading {
+  font-weight: 2.5rem;
+  line-height: 2.5rem;
+
+  @media (max-width: 640px) {
+    font-weight: 1.8rem;
+    line-height: 2rem;
+  }
+} */
+
+.home-box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }

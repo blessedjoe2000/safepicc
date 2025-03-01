@@ -14,7 +14,7 @@ const HomeVideo = () => {
         <h1 className=" welcome-heading font-robotoSlab ">
           Welcome to Safe PICC Plus Inc.
         </h1>
-        <div className="bg-black/20 p-5 mt-5 ">
+        <div className="bg-black/20 sm:p-5 p-2 sm:mt-5 mt-2 ">
           <p className="welcome-text ">
             Where patient care and safety are our top priorities. We are
             committed to excellence and dedicated to delivering high-quality
