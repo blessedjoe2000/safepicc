@@ -214,17 +214,14 @@ li {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-/* .subheading {
-  font-weight: 2.5rem;
-  line-height: 2.5rem;
-
-  @media (max-width: 640px) {
-    font-weight: 1.8rem;
-    line-height: 2rem;
-  }
-} */
-
 .home-box-shadow {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
     rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+input,
+textarea,
+select {
+  @apply border border-gray-200 rounded-sm w-full mb-2 p-1 outline-none focus-visible:border-main-teal;
+  @apply shadow-sm;
 }
