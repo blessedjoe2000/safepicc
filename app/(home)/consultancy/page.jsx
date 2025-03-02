@@ -61,7 +61,7 @@ const Consultancy = () => {
           </h2>
           <div className="w-full h-[400px] sm:h-[400px] md:h-[400px] lg:h-[500px]">
             <Image
-              src="https://s4sya57j5i.ufs.sh/f/1Wr3ZpR6uMW3fxNIQGvlkRu0UoN3QCrvAmKnZWg5M9YqFOyS"
+              src="https://s4sya57j5i.ufs.sh/f/1Wr3ZpR6uMW36yKl6nWHr5gT3ulQBjU7GyFYKdaPtNfDohAi"
               alt="consent"
               width={1920}
               height={400}
