@@ -59,7 +59,7 @@ const Collaborate = () => {
             improve industry standards.
           </li>
         </ul>
-        <p className="sm:mt-10 mb-2">
+        <p className="sm:mt-10 mt-5">
           We are excited about the opportunity to collaborate and develop
           impactful solutions that enhance vascular access care. By joining
           forces, we can drive innovation, improve patient outcomes, and set new
