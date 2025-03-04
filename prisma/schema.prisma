@@ -20,19 +20,31 @@ model Course {
   decription  String?  @db.Text
   imageUrl    String?  @db.Text
   price       Float?
+  videoUrl    String?  @db.Text
   isPublished Boolean? @default(false)
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
 
+  muxDataId String
+  muxData   MuxData @relation(fields: [muxDataId], references: [id], onDelete: Cascade)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([categoryId])
+  @@index([muxDataId])
 }
 
 model Category {
   id      String   @id @default(uuid())
   name    String   @unique
   courses Course[]
+}
+
+model MuxData {
+  id         String   @id @default(uuid())
+  assetId    String?
+  playbackId String?
+  Course     Course[]
 }

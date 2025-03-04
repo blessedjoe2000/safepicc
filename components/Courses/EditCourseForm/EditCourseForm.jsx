@@ -17,9 +17,9 @@ import { Combobox } from "@/components/ComboBox/ComboBox";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import RichEditor from "@/components/RichEditor/RichEditor";
 import FileUploader from "@/components/FileUploader/FileUploader";
 import Link from "next/link";
+import { Trash } from "lucide-react";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Title is required " }),
@@ -53,11 +53,33 @@ const EditCourseForm = ({ course, categories }) => {
       return toast.error("Something went wrong...");
     }
   }
+
+  async function handleDelete() {
+    try {
+      await axios.delete(`/api/courses/${course.id}`);
+      toast.success(`course deleted successfully`);
+      router.push("/admin/courses");
+    } catch (error) {
+      console.log("failed deleting course :>> ", error);
+      return toast.error("Something went wrong...");
+    }
+  }
   return (
     <div className="p-10">
-      <p className="text-lg font-semi-bold">
-        Enter the basic information of your course
-      </p>
+      <div className="flex justify-between items-center">
+        <p className="text-lg font-semi-bold">
+          Enter the basic information of your course
+        </p>
+        <div className="flex items-center gap-2">
+          <Button type="button" variant="outline">
+            Publish
+          </Button>
+          <Button type="button" onClick={handleDelete}>
+            <Trash className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

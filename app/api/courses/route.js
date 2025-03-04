@@ -35,11 +35,13 @@ export async function GET(req) {
       return new Response(JSON.stringify("Unauthorized"), { status: 401 });
     }
 
+    console.log("db courses", db.course);
     const allCourses = await db.course.findMany({
       orderBy: {
         createdAt: "desc",
       },
     });
+    console.log("allCourses :>> ", allCourses);
 
     return new Response(JSON.stringify(allCourses), { status: 200 });
   } catch (error) {

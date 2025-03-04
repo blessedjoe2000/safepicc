@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import HomeVideo from "@/components/Videos/HomeVideo";
+import Link from "next/link";
 import React from "react";
 
 export default function Home() {
@@ -41,7 +42,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="home-box-shadow sm:p-10 p-5 sm:mt-10 mt-5">
+        <div className="home-box-shadow sm:p-10 p-5 sm:mt-10 mt-5 mb-5">
           <h2 className="sm:text-4xl text-2xl text-center ">
             Why Use Safe PICC Plus Inc.?
           </h2>
@@ -102,9 +103,9 @@ export default function Home() {
           </ul>
         </div>
 
-        <div className="my-2">
+        <Link href="/services" className="my-2">
           <Button>Check Out Our Services</Button>
-        </div>
+        </Link>
       </div>
     </div>
   );
