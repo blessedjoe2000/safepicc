@@ -31,6 +31,7 @@ const AdminCourses = () => {
       <Link href="/admin/courses/create-course">
         <Button>Create New Course</Button>
       </Link>
+      {allCourses.length === 0 && <div>No Courses available</div>}
       <div className=" flex flex-col mt-10">
         {allCourses.map((course) => (
           <Link href={`/admin/courses/${course.id}/basic`} key={course.id}>

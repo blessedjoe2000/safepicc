@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -17,8 +11,7 @@ model Course {
   id          String   @id @default(uuid())
   adminId     String
   title       String   @db.Text
-  decription  String?  @db.Text
-  imageUrl    String?  @db.Text
+  description String?  @db.Text
   price       Float?
   videoUrl    String?  @db.Text
   isPublished Boolean? @default(false)
@@ -26,14 +19,12 @@ model Course {
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
 
-  muxDataId String
-  muxData   MuxData @relation(fields: [muxDataId], references: [id], onDelete: Cascade)
+  muxData MuxData?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([categoryId])
-  @@index([muxDataId])
 }
 
 model Category {
@@ -43,8 +34,11 @@ model Category {
 }
 
 model MuxData {
-  id         String   @id @default(uuid())
+  id         String  @id @default(uuid())
   assetId    String?
   playbackId String?
-  Course     Course[]
+  courseId   String? @unique
+  course     Course? @relation(fields: [courseId], references: [id], onDelete: Cascade) //Full Relation
+
+  @@index([courseId])
 }

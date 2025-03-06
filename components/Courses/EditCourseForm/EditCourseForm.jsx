@@ -3,14 +3,6 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ComboBox/ComboBox";
@@ -19,18 +11,41 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import FileUploader from "@/components/FileUploader/FileUploader";
 import Link from "next/link";
-import { Trash } from "lucide-react";
+import { Loader2, Trash } from "lucide-react";
+import { useState } from "react";
+import ReactPlayer from "react-player";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Title is required " }),
   categoryId: z.string().min(2, { message: "Category is required " }),
   description: z.string().optional(),
-  imageUrl: z.string().optional(),
+  videoUrl: z.string().optional(),
   price: z.coerce.number().optional(),
 });
 
 const EditCourseForm = ({ course, categories }) => {
   const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -38,14 +53,16 @@ const EditCourseForm = ({ course, categories }) => {
       title: course.title,
       categoryId: course.categoryId,
       description: course.description || "",
-      imageUrl: course.imageUrl || "",
+      videoUrl: course.videoUrl || "",
       price: course.price || undefined,
     },
   });
 
   async function onSubmit(values) {
     try {
+      setIsLoading(true);
       await axios.patch(`/api/courses/${course.id}`, values);
+      setIsLoading(false);
       toast.success(`course updated successfully`);
       router.push("/admin/courses");
     } catch (error) {
@@ -56,7 +73,9 @@ const EditCourseForm = ({ course, categories }) => {
 
   async function handleDelete() {
     try {
+      setIsDeleting(true);
       await axios.delete(`/api/courses/${course.id}`);
+      setIsDeleting(false);
       toast.success(`course deleted successfully`);
       router.push("/admin/courses");
     } catch (error) {
@@ -64,6 +83,7 @@ const EditCourseForm = ({ course, categories }) => {
       return toast.error("Something went wrong...");
     }
   }
+
   return (
     <div className="p-10">
       <div className="flex justify-between items-center">
@@ -74,9 +94,33 @@ const EditCourseForm = ({ course, categories }) => {
           <Button type="button" variant="outline">
             Publish
           </Button>
-          <Button type="button" onClick={handleDelete}>
-            <Trash className="h-4 w-4" />
-          </Button>
+          {isDeleting ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button type="button">
+                  <Trash className="h-4 w-4" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="text-main-red">
+                    Confirm Delete?
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This course will be deleted permanently.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDelete}>
+                    Delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
         </div>
       </div>
 
@@ -132,17 +176,28 @@ const EditCourseForm = ({ course, categories }) => {
               </FormItem>
             )}
           />
+          {course?.videoUrl && (
+            <div className="my-5">
+              <ReactPlayer
+                url={course.videoUrl}
+                controls
+                width="600"
+                height="100%"
+              />
+            </div>
+          )}
           <FormField
             control={form.control}
-            name="imageUrl"
+            name="videoUrl"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Course Image</FormLabel>
+                <FormLabel>Course Video</FormLabel>
                 <FormControl>
                   <FileUploader
                     value={field.value || ""}
                     onChange={(url) => field.onChange(url)}
-                    endpoint="courseBanner"
+                    endpoint="courseVideo"
+                    page="Edit Course"
                   />
                 </FormControl>
                 <FormMessage />
@@ -168,7 +223,9 @@ const EditCourseForm = ({ course, categories }) => {
                 Cancel
               </Button>
             </Link>
-            <Button type="submit">Save</Button>
+            <Button type="submit">
+              {isLoading && <Loader2 className=" animate-spin" />} Save
+            </Button>
           </div>
         </form>
       </Form>
