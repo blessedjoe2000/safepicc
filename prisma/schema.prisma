@@ -19,8 +19,6 @@ model Course {
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
 
-  muxData MuxData?
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -31,14 +29,4 @@ model Category {
   id      String   @id @default(uuid())
   name    String   @unique
   courses Course[]
-}
-
-model MuxData {
-  id         String  @id @default(uuid())
-  assetId    String?
-  playbackId String?
-  courseId   String? @unique
-  course     Course? @relation(fields: [courseId], references: [id], onDelete: Cascade) //Full Relation
-
-  @@index([courseId])
 }

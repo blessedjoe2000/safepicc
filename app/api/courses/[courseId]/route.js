@@ -1,13 +1,8 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import Mux from "@mux/mux-node";
 
 export async function PATCH(req, { params }) {
   const { courseId } = params;
-  const { video } = new Mux(
-    process.env.MUX_TOKEN_ID,
-    process.env.MUX_TOKEN_SECRET
-  );
 
   try {
     const { userId } = await auth();
@@ -26,37 +21,10 @@ export async function PATCH(req, { params }) {
         videoUrl: values.videoUrl,
         price: values.price,
       },
+      include: {
+        isPublished: true,
+      },
     });
-
-    if (values.videoUrl) {
-      const existingMuxUrl = await db.muxData.findFirst({
-        where: {
-          courseId,
-        },
-      });
-      if (existingMuxUrl) {
-        await video.assets.delete(existingMuxUrl.assetId);
-        await db.muxData.delete({
-          where: {
-            id: existingMuxUrl.id,
-          },
-        });
-      }
-
-      const newMuxAsset = await video.assets.create({
-        input: values.videoUrl,
-        playback_policy: ["public"],
-        test: false,
-      });
-
-      await db.muxData.create({
-        data: {
-          assetId: newMuxAsset.id,
-          playbackId: newMuxAsset.playback_ids?.[0]?.id,
-          courseId,
-        },
-      });
-    }
 
     return new Response(JSON.stringify(updatedCourse), { status: 200 });
   } catch (error) {

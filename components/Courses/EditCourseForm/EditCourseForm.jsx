@@ -64,7 +64,6 @@ const EditCourseForm = ({ course, categories }) => {
       await axios.patch(`/api/courses/${course.id}`, values);
       setIsLoading(false);
       toast.success(`course updated successfully`);
-      router.push("/admin/courses");
     } catch (error) {
       console.log("failed updating course :>> ", error);
       return toast.error("Something went wrong...");
@@ -91,15 +90,13 @@ const EditCourseForm = ({ course, categories }) => {
           Enter the basic information of your course
         </p>
         <div className="flex items-center gap-2">
-          <Button type="button" variant="outline">
-            Publish
-          </Button>
           {isDeleting ? (
             <Loader2 className="h-4 w-4 animate-spin" />
           ) : (
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button type="button">
+                  Delete
                   <Trash className="h-4 w-4" />
                 </Button>
               </AlertDialogTrigger>
@@ -134,7 +131,9 @@ const EditCourseForm = ({ course, categories }) => {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>
+                  Title<span className="text-main-red">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Enter course title" {...field} />
                 </FormControl>
@@ -147,7 +146,9 @@ const EditCourseForm = ({ course, categories }) => {
             name="categoryId"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Category</FormLabel>
+                <FormLabel>
+                  Category<span className="text-main-red">*</span>
+                </FormLabel>
                 <FormControl>
                   <Combobox
                     options={categories}
@@ -181,7 +182,7 @@ const EditCourseForm = ({ course, categories }) => {
               <ReactPlayer
                 url={course.videoUrl}
                 controls
-                width="600"
+                width="600px"
                 height="100%"
               />
             </div>
@@ -191,7 +192,9 @@ const EditCourseForm = ({ course, categories }) => {
             name="videoUrl"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Course Video</FormLabel>
+                <FormLabel>
+                  Upload Course Video <span className="text-main-red">*</span>
+                </FormLabel>
                 <FormControl>
                   <FileUploader
                     value={field.value || ""}
@@ -204,12 +207,15 @@ const EditCourseForm = ({ course, categories }) => {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="price"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Price (USD)</FormLabel>
+                <FormLabel>
+                  Price (USD)<span className="text-main-red">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input type="number" placeholder="$39.99" {...field} />
                 </FormControl>
@@ -224,7 +230,7 @@ const EditCourseForm = ({ course, categories }) => {
               </Button>
             </Link>
             <Button type="submit">
-              {isLoading && <Loader2 className=" animate-spin" />} Save
+              {isLoading && <Loader2 className=" animate-spin" />} Publish
             </Button>
           </div>
         </form>

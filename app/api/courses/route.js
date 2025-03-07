@@ -15,16 +15,11 @@ export async function POST(req) {
     const newCourse = await db.course.create({
       data: {
         title,
+        categoryId,
         description,
         videoUrl,
         price: parseFloat(price),
         adminId: userId,
-        category: {
-          connect: { id: categoryId },
-        },
-      },
-      include: {
-        muxData: true,
       },
     });
 

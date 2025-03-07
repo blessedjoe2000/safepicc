@@ -26,7 +26,7 @@ const formSchema = z.object({
   categoryId: z.string().min(1, { message: "Category is required" }),
   description: z.string(),
   videoUrl: z.string(),
-  price: z.string().min(2, { message: "Price is required" }),
+  price: z.coerce.number().optional(),
 });
 
 const CreateCourseForm = ({ categories }) => {
@@ -72,7 +72,9 @@ const CreateCourseForm = ({ categories }) => {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>
+                  Title<span className="text-main-red">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Enter course title" {...field} />
                 </FormControl>
@@ -85,7 +87,9 @@ const CreateCourseForm = ({ categories }) => {
             name="categoryId"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Category</FormLabel>
+                <FormLabel>
+                  Category<span className="text-main-red">*</span>
+                </FormLabel>
                 <FormControl>
                   <Combobox
                     options={categories}

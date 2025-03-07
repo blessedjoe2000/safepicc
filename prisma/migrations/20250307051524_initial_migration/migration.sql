@@ -22,30 +22,11 @@ CREATE TABLE "Category" (
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "MuxData" (
-    "id" TEXT NOT NULL,
-    "assetId" TEXT,
-    "playbackId" TEXT,
-    "courseId" TEXT,
-
-    CONSTRAINT "MuxData_pkey" PRIMARY KEY ("id")
-);
-
 -- CreateIndex
 CREATE INDEX "Course_categoryId_idx" ON "Course"("categoryId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Category_name_key" ON "Category"("name");
 
--- CreateIndex
-CREATE UNIQUE INDEX "MuxData_courseId_key" ON "MuxData"("courseId");
-
--- CreateIndex
-CREATE INDEX "MuxData_courseId_idx" ON "MuxData"("courseId");
-
 -- AddForeignKey
 ALTER TABLE "Course" ADD CONSTRAINT "Course_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "MuxData" ADD CONSTRAINT "MuxData_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course"("id") ON DELETE CASCADE ON UPDATE CASCADE;
