@@ -10,13 +10,15 @@ export async function POST(req) {
     }
 
     const courseData = await req.json();
-    const { title, categoryId, description, videoUrl, price } = courseData;
+    const { title, categoryId, description, imageUrl, videoUrl, price } =
+      courseData;
 
     const newCourse = await db.course.create({
       data: {
         title,
         categoryId,
         description,
+        imageUrl,
         videoUrl,
         price: parseFloat(price),
         adminId: userId,

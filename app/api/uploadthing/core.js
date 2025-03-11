@@ -11,13 +11,19 @@ const handleAuth = async () => {
 };
 
 export const ourFileRouter = {
+  courseImage: f({
+    image: { maxFileSize: "4MB", maxFileCount: 1 },
+  })
+    .middleware(handleAuth)
+    .onUploadComplete(async ({ file, metadata }) => {
+      return { fileUrl: file.ufsUrl, fileType: file.type };
+    }),
   courseVideo: f({
     video: { maxFileSize: "25GB", maxFileCount: 1 },
   })
     .middleware(handleAuth)
     .onUploadComplete(async ({ file, metadata }) => {
-      console.log("file :>> ", file);
-      return { fileUrl: file.ufsUrl };
+      return { fileUrl: file.ufsUrl, fileType: file.type };
     }),
 };
 

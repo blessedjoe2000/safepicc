@@ -13,6 +13,7 @@ model Course {
   title       String   @db.Text
   description String?  @db.Text
   price       Float?
+  imageUrl    String?  @db.Text
   videoUrl    String?  @db.Text
   isPublished Boolean? @default(false)
 

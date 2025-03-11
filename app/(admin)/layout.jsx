@@ -1,5 +1,6 @@
 "use client";
 
+import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 import Sidebar from "@/components/Sidebar.jsx/Sidebar.jsx";
 import { useAuth } from "@clerk/nextjs";
@@ -19,6 +20,7 @@ const AdminLayout = ({ children }) => {
         <Sidebar />
         <div className="flex-1 ">{children}</div>
       </div>
+      <Footer />
     </div>
   );
 };

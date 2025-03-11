@@ -16,7 +16,8 @@ const Navbar = () => {
         <Link href="/services">Services</Link>
         <Link href="/education">Education</Link>
         <Link href="/contact">Contact Us</Link>
-        <Link href="/admin/courses">Courses</Link>
+        <Link href="/admin/courses">Admin</Link>
+        <Link href="/courses">Courses</Link>
       </div>
       <div>
         {isSignedIn ? (

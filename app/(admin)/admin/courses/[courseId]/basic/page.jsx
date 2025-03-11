@@ -1,3 +1,4 @@
+import AlertBanner from "@/components/AlertBanner/AlertBanner";
 import EditCourseForm from "@/components/Courses/EditCourseForm/EditCourseForm";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
@@ -24,14 +25,32 @@ const CourseBasic = async ({ params }) => {
     redirect("/admin/courses");
   }
 
+  const requiredFields = [
+    course.title,
+    course.categoryId,
+    course.imageUrl,
+    course.videoUrl,
+    course.price,
+  ];
+  const requiredFieldCount = requiredFields.length;
+  const missingField = requiredFields.filter((field) => !Boolean(field));
+  const missingFieldCount = missingField.length;
+  const isCompleted = requiredFields.every(Boolean);
+
   return (
     <div className="px-10">
+      <AlertBanner
+        isCompleted={isCompleted}
+        missingFieldCount={missingFieldCount}
+        requiredFieldCount={requiredFieldCount}
+      />
       <EditCourseForm
         course={course}
         categories={categories.map((category) => ({
           label: category.name,
           value: category.id,
         }))}
+        isCompleted={isCompleted}
       />
     </div>
   );

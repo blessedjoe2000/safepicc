@@ -1,5 +1,7 @@
 "use client";
 
+import { columns } from "@/components/Courses/Columns/Columns";
+import { DataTable } from "@/components/Courses/DataTable/DataTable";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
@@ -32,12 +34,9 @@ const AdminCourses = () => {
         <Button>Create New Course</Button>
       </Link>
       {allCourses.length === 0 && <div>No Courses available</div>}
-      <div className=" flex flex-col mt-10">
-        {allCourses.map((course) => (
-          <Link href={`/admin/courses/${course.id}/basic`} key={course.id}>
-            {course.title}
-          </Link>
-        ))}
+
+      <div className="mt-5">
+        <DataTable columns={columns} data={allCourses} />
       </div>
     </div>
   );

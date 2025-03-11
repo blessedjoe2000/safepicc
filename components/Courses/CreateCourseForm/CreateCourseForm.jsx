@@ -25,6 +25,7 @@ const formSchema = z.object({
   title: z.string().min(2, { message: "Title is required " }),
   categoryId: z.string().min(1, { message: "Category is required" }),
   description: z.string(),
+  imageUrl: z.string(),
   videoUrl: z.string(),
   price: z.coerce.number().optional(),
 });
@@ -39,6 +40,7 @@ const CreateCourseForm = ({ categories }) => {
       title: "",
       categoryId: "",
       description: "",
+      imageUrl: "",
       videoUrl: "",
       price: "",
     },
@@ -120,16 +122,34 @@ const CreateCourseForm = ({ categories }) => {
           />
           <FormField
             control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Course Image</FormLabel>
+                <FormControl>
+                  <FileUploader
+                    value={field.value || ""}
+                    onChange={(url) => field.onChange(url)}
+                    endpoint="courseImage"
+                    page="Create Course"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="videoUrl"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Course Video</FormLabel>
+                <FormLabel>Upload Course Video</FormLabel>
                 <FormControl>
                   <FileUploader
                     value={field.value || ""}
                     onChange={(url) => field.onChange(url)}
                     endpoint="courseVideo"
-                    page="Edit Course"
+                    page="Create Course"
                   />
                 </FormControl>
                 <FormMessage />

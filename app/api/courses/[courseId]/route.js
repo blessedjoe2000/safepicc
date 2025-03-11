@@ -12,17 +12,27 @@ export async function PATCH(req, { params }) {
       return new Response(JSON.stringify("Unauthorized"), { status: 401 });
     }
 
+    if (
+      !values.title ||
+      !values.categoryId ||
+      !values.imageUrl ||
+      !values.videoUrl ||
+      !values.price
+    ) {
+      return new Response(JSON.stringify("Missing required fields"), {
+        status: 400,
+      });
+    }
+
     const updatedCourse = await db.course.update({
       where: { id: courseId },
       data: {
         title: values.title,
         categoryId: values.categoryId,
         description: values.description,
+        imageUrl: values.imageUrl,
         videoUrl: values.videoUrl,
         price: values.price,
-      },
-      include: {
-        isPublished: true,
       },
     });
 
@@ -34,6 +44,7 @@ export async function PATCH(req, { params }) {
     });
   }
 }
+
 export async function DELETE(req, { params }) {
   const { courseId } = params;
 

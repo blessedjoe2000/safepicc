@@ -33,16 +33,18 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import PublishButton from "@/components/PublishButton/PublishButton";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Title is required " }),
   categoryId: z.string().min(2, { message: "Category is required " }),
   description: z.string().optional(),
+  imageUrl: z.string().optional(),
   videoUrl: z.string().optional(),
   price: z.coerce.number().optional(),
 });
 
-const EditCourseForm = ({ course, categories }) => {
+const EditCourseForm = ({ course, categories, isCompleted }) => {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,22 +55,11 @@ const EditCourseForm = ({ course, categories }) => {
       title: course.title,
       categoryId: course.categoryId,
       description: course.description || "",
+      imageUrl: course.imageUrl || "",
       videoUrl: course.videoUrl || "",
       price: course.price || undefined,
     },
   });
-
-  async function onSubmit(values) {
-    try {
-      setIsLoading(true);
-      await axios.patch(`/api/courses/${course.id}`, values);
-      setIsLoading(false);
-      toast.success(`course updated successfully`);
-    } catch (error) {
-      console.log("failed updating course :>> ", error);
-      return toast.error("Something went wrong...");
-    }
-  }
 
   async function handleDelete() {
     try {
@@ -83,6 +74,19 @@ const EditCourseForm = ({ course, categories }) => {
     }
   }
 
+  async function onSubmit(values) {
+    try {
+      setIsLoading(true);
+      await axios.patch(`/api/courses/${course.id}`, values);
+      setIsLoading(false);
+      toast.success(`course updated successfully`);
+      router.push("/admin/courses");
+    } catch (error) {
+      console.log("failed updating course :>> ", error);
+      return toast.error("Something went wrong...");
+    }
+  }
+
   return (
     <div className="p-10">
       <div className="flex justify-between items-center">
@@ -90,13 +94,17 @@ const EditCourseForm = ({ course, categories }) => {
           Enter the basic information of your course
         </p>
         <div className="flex items-center gap-2">
+          <PublishButton
+            disabled={!isCompleted}
+            courseId={course.id}
+            isPublished={course.isPublished}
+          />
           {isDeleting ? (
             <Loader2 className="h-4 w-4 animate-spin" />
           ) : (
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button type="button">
-                  Delete
                   <Trash className="h-4 w-4" />
                 </Button>
               </AlertDialogTrigger>
@@ -177,16 +185,27 @@ const EditCourseForm = ({ course, categories }) => {
               </FormItem>
             )}
           />
-          {course?.videoUrl && (
-            <div className="my-5">
-              <ReactPlayer
-                url={course.videoUrl}
-                controls
-                width="600px"
-                height="100%"
-              />
-            </div>
-          )}
+          <FormField
+            control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>
+                  Course image <span className="text-main-red">*</span>
+                </FormLabel>
+                <FormControl>
+                  <FileUploader
+                    value={field.value || ""}
+                    onChange={(url) => field.onChange(url)}
+                    endpoint="courseImage"
+                    page="Edit Course"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="videoUrl"
@@ -207,7 +226,16 @@ const EditCourseForm = ({ course, categories }) => {
               </FormItem>
             )}
           />
-
+          {course?.videoUrl && (
+            <div className="my-5">
+              <ReactPlayer
+                url={course.videoUrl}
+                controls
+                width="600px"
+                height="100%"
+              />
+            </div>
+          )}
           <FormField
             control={form.control}
             name="price"
@@ -230,7 +258,7 @@ const EditCourseForm = ({ course, categories }) => {
               </Button>
             </Link>
             <Button type="submit">
-              {isLoading && <Loader2 className=" animate-spin" />} Publish
+              {isLoading && <Loader2 className=" animate-spin" />} Save
             </Button>
           </div>
         </form>
