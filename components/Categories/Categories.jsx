@@ -1,0 +1,37 @@
+"use client";
+
+import React from "react";
+import { Button } from "../ui/button";
+import { usePathname, useRouter } from "next/navigation";
+
+const Categories = ({ categories }) => {
+  const router = useRouter();
+  const path = usePathname();
+  const selectedCategory = path.split("/").pop();
+
+  const onClick = (categoryId) => {
+    router.push(categoryId ? `/categories/${categoryId}` : "/courses");
+  };
+
+  return (
+    <div className="flex flex-wrap justify-center gap-7 my-10 px-4">
+      <Button
+        variant={selectedCategory === "courses" ? "default" : "outline"}
+        onClick={() => onClick(null)}
+      >
+        All Categories
+      </Button>
+      {categories.map((category) => (
+        <Button
+          key={category.id}
+          variant={selectedCategory === category.id ? "default" : "outline"}
+          onClick={() => onClick(category.id)}
+        >
+          {category.name}
+        </Button>
+      ))}
+    </div>
+  );
+};
+
+export default Categories;

@@ -53,7 +53,7 @@ export async function GET(req) {
 
     return new Response(JSON.stringify(allCourses), { status: 200 });
   } catch (error) {
-    return new Response(JSON.stringify("Error creating course", error), {
+    return new Response(JSON.stringify("Error fetching course", error), {
       status: 500,
     });
   }
