@@ -7,7 +7,7 @@ const CourseCard = ({ course }) => {
   return (
     <div>
       <div className="border-1 rounded-lg shadow-lg w-[350px] flex flex-col">
-        <Link href={`/courses/${course.id}/overview`} className="flex flex-col">
+        <Link href={`/courses/${course.id}`} className="flex flex-col">
           <Image
             src={course.imageUrl ? course.imageUrl : "/image_placeholder.webp"}
             alt="course-title"

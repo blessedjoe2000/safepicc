@@ -15,7 +15,11 @@ export async function GET(req, { params }) {
     });
 
     const courses = await db.course.findMany({
-      where: { categoryId },
+      where: { categoryId, isPublished: true },
+      include: { category: true },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return new Response(JSON.stringify({ categories, courses }), {
