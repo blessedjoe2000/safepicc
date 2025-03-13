@@ -2,12 +2,10 @@
 
 import React from "react";
 import { Button } from "../ui/button";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-const Categories = ({ categories }) => {
+const Categories = ({ categories, selected }) => {
   const router = useRouter();
-  const path = usePathname();
-  const selectedCategory = path.split("/").pop();
 
   const onClick = (categoryId) => {
     router.push(categoryId ? `/categories/${categoryId}` : "/courses");
@@ -16,15 +14,15 @@ const Categories = ({ categories }) => {
   return (
     <div className="flex flex-wrap justify-center gap-7 my-10 px-4">
       <Button
-        variant={selectedCategory === "courses" ? "default" : "outline"}
+        variant={selected === null ? "default" : "outline"}
         onClick={() => onClick(null)}
       >
         All Categories
       </Button>
-      {categories.map((category) => (
+      {categories?.map((category) => (
         <Button
           key={category.id}
-          variant={selectedCategory === category.id ? "default" : "outline"}
+          variant={selected === category.id ? "default" : "outline"}
           onClick={() => onClick(category.id)}
         >
           {category.name}
