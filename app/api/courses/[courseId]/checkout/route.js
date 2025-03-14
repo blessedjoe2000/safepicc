@@ -61,8 +61,6 @@ export async function POST(req, { params }) {
       }
     }
 
-    console.log("here");
-
     const line_items = [
       {
         quantity: 1,
