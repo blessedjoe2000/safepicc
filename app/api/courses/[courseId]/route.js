@@ -67,12 +67,9 @@ export async function DELETE(req, { params }) {
       status: 200,
     });
   } catch (error) {
-    return new Response(
-      JSON.stringify("Error updating course", error.message),
-      {
-        status: 500,
-      }
-    );
+    return new Response(JSON.stringify("Error updating course", error), {
+      status: 500,
+    });
   }
 }
 
@@ -94,15 +91,21 @@ export async function GET(req, { params }) {
       where: { id: courseId, isPublished: true },
     });
 
-    return new Response(JSON.stringify(course), {
+    const purchase = await db.purchase.findUnique({
+      where: {
+        customerId_courseId: {
+          customerId: userId,
+          courseId,
+        },
+      },
+    });
+
+    return new Response(JSON.stringify({ course, purchase }), {
       status: 200,
     });
   } catch (error) {
-    return new Response(
-      JSON.stringify("Error fetching course", error.message),
-      {
-        status: 500,
-      }
-    );
+    return new Response(JSON.stringify("Error fetching course", error), {
+      status: 500,
+    });
   }
 }

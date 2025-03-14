@@ -1,13 +1,12 @@
 import { db } from "@/lib/db";
-import { stripe } from "@/lib/stripe";
-import { currentUser } from "@clerk/nextjs/dist/types/server";
-import Stripe from "stripe";
+import { currentUser } from "@clerk/nextjs/server";
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(req, { params }) {
   const { courseId } = params;
 
   try {
-    const { user } = await currentUser();
+    const user = await currentUser();
 
     if (!user || !user.id || !user.emailAddresses[0]?.emailAddress) {
       return new Response(JSON.stringify("Unauthorized"), { status: 401 });
@@ -27,15 +26,42 @@ export async function POST(req, { params }) {
 
     const purchase = await db.purchase.findUnique({
       where: {
-        customerId_courseId: { customerId: user.id, courseId: courseId.id },
+        customerId_courseId: { customerId: user.id, courseId },
       },
     });
 
     if (purchase) {
-      return new Response(JSON.stringify("Course already purchased"), {
+      return new Response(JSON.stringify("error checking out "), {
         status: 400,
       });
     }
+
+    let stripeCustomer = await db.stripeCustomer.findUnique({
+      where: { customerId: user.id },
+      select: { stripeCustomerId: true },
+    });
+
+    if (!stripeCustomer) {
+      const customer = await stripe.customers.create({
+        email: user.emailAddresses[0].emailAddress,
+      });
+
+      stripeCustomer = await db.stripeCustomer.create({
+        data: {
+          customerId: user.id,
+          stripeCustomerId: customer.id,
+        },
+      });
+
+      if (!stripeCustomer || !stripeCustomer.stripeCustomerId) {
+        return new Response(
+          JSON.stringify({ error: "Stripe customer creation failed" }),
+          { status: 500 }
+        );
+      }
+    }
+
+    console.log("here");
 
     const line_items = [
       {
@@ -50,26 +76,25 @@ export async function POST(req, { params }) {
       },
     ];
 
-    let stripeCustomer = await db.stripeCustomer.findUnique({
-      where: { customerId: user.id },
-      select: { stripeCustomerId: true },
+    const session = await stripe.checkout.sessions.create({
+      customer: stripeCustomer.stripeCustomerId,
+      payment_method_types: ["card"],
+      mode: "payment",
+      line_items,
+      success_url: `${process.env.NEXT_PUBLIC_URL}/courses/${course.id}?success=true`,
+      cancel_url: `${process.env.NEXT_PUBLIC_URL}/courses/${course.id}?canceled=true`,
+      metadata: {
+        courseId: course.id,
+        customerId: user.id,
+      },
     });
 
-    if (!stripeCustomer) {
-      const customer = await stripe.customers.create({
-        email: user.emailAddresses[0].emailAddress,
-      });
-    }
-
-    return new Response(JSON.stringify("Course deleted successfully"), {
+    return new Response(JSON.stringify({ url: session.url }), {
       status: 200,
     });
   } catch (error) {
-    return new Response(
-      JSON.stringify("Error updating course", error.message),
-      {
-        status: 500,
-      }
-    );
+    return new Response(JSON.stringify("Error updating course", error), {
+      status: 500,
+    });
   }
 }

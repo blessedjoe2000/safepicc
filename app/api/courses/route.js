@@ -28,12 +28,9 @@ export async function POST(req) {
     return new Response(JSON.stringify(newCourse), { status: 201 });
   } catch (error) {
     console.log("error :>> ", error);
-    return new Response(
-      JSON.stringify("Error creating course", error.message),
-      {
-        status: 500,
-      }
-    );
+    return new Response(JSON.stringify("Error creating course", error), {
+      status: 500,
+    });
   }
 }
 
