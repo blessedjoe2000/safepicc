@@ -18,7 +18,8 @@ model Course {
   isPublished Boolean? @default(false)
 
   categoryId String
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category   @relation(fields: [categoryId], references: [id])
+  purchases  Purchase[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -30,4 +31,24 @@ model Category {
   id      String   @id @default(uuid())
   name    String   @unique
   courses Course[]
+}
+
+model Purchase {
+  id         String   @id @default(uuid())
+  customerId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  courseId   String
+  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([customerId, courseId])
+  @@index([courseId])
+}
+
+model StripeCustomer {
+  id               String   @id @default(uuid())
+  customerId       String   @unique
+  stripeCustomerId String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
