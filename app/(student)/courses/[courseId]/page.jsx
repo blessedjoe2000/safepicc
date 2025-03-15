@@ -7,6 +7,7 @@ import { redirect, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
+import ReactPlayer from "react-player";
 
 const CourseOverview = () => {
   const { userId } = useAuth();
@@ -48,6 +49,8 @@ const CourseOverview = () => {
     }
   };
 
+  console.log("course :>> ", course);
+
   return (
     <div className="relative">
       {!purchase && (
@@ -69,6 +72,17 @@ const CourseOverview = () => {
         <div className="flex flex-col gap-2 pb-5">
           <div className="font-bold">Description:</div>
           <div className="px-5">{course.description} </div>
+          <div>
+            <div className="font-bold">Video:</div>
+            <div className="my-2">
+              <ReactPlayer
+                url={course.videoUrl}
+                controls
+                width="100%"
+                height="100%"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
