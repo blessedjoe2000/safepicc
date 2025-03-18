@@ -1,6 +1,7 @@
 import EducationHeader from "@/components/ImageHeader/EducationHeader";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 const education = () => {
   return (
@@ -160,7 +161,9 @@ const education = () => {
           details about our educational programs, reach out to us today and take
           the next step in mastering exceptional vascular access care.
         </p>
-        <Button>Click here to view Courses</Button>
+        <Link href="/courses">
+          <Button>Click here to view Courses</Button>
+        </Link>
       </div>
     </div>
   );

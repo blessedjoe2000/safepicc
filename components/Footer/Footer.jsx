@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 import SocialMedia from "../SocialMedia/SocialMedia";
 
 const Footer = () => {
@@ -20,7 +19,7 @@ const Footer = () => {
           <Link href="/consultancy">Consultation</Link>
           <Link href="/volunteering">Volunteering</Link>
 
-          <Link href="/admin/courses">Courses</Link>
+          <Link href="/courses">Courses</Link>
         </div>
         <SocialMedia />
       </div>

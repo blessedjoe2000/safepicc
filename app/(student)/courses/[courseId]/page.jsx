@@ -49,8 +49,6 @@ const CourseOverview = () => {
     }
   };
 
-  console.log("course :>> ", course);
-
   return (
     <div className="relative">
       {!purchase && (

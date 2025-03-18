@@ -6,7 +6,7 @@ import Link from "next/link";
 const CourseCard = ({ course }) => {
   return (
     <div>
-      <div className="border-1 rounded-lg shadow-lg w-[350px] flex flex-col">
+      <div className="border-1 rounded-lg shadow-lg xs:w-[350px] w-[300px] flex flex-col">
         <Link href={`/courses/${course.id}`} className="flex flex-col">
           <Image
             src={course.imageUrl ? course.imageUrl : "/image_placeholder.webp"}

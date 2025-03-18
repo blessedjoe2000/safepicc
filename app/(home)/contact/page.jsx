@@ -20,17 +20,17 @@ const Contact = () => {
         <div className="flex sm:flex-row flex-col item-center gap-5 justify-around sm:py-10 py-5">
           <div className="flex justify-center items-center flex-col ">
             <div className="flex items-center justify-center gap-2 pb-2">
-              <Clock10 color="#A1E3F9" />
+              <Clock10 color="#F5004F" />
               <p className="">
                 Office Hours: Monday to Friday, 9AM - 5PM (CST)
               </p>
             </div>
             <div className="flex items-center justify-center gap-2 pb-2">
-              <Smartphone color="#A1E3F9" />
+              <Smartphone color="#F5004F" />
               <p className="">(281) 633-6060</p>
             </div>
             <div className="flex items-center justify-center gap-2">
-              <Mail color="#A1E3F9" />
+              <Mail color="#F5004F" />
               <p className="">info@safepicc.com</p>
             </div>
           </div>
