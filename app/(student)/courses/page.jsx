@@ -55,7 +55,7 @@ const StudentCourses = () => {
             No course found for this category
           </div>
         ))}
-      <div className="flex flex-wrap gap-7 justify-center">
+      <div className="flex flex-wrap md:gap-7 gap-5 justify-center px-5">
         {courses?.map((course) => (
           <CourseCard key={course.id} course={course} />
         ))}

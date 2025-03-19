@@ -88,7 +88,7 @@ const EditCourseForm = ({ course, categories, isCompleted }) => {
   }
 
   return (
-    <div className="p-10">
+    <div className="">
       <div className="flex justify-between items-center">
         <p className="text-lg font-semi-bold">
           Enter the basic information of your course

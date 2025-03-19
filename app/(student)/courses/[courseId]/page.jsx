@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
 import ReactPlayer from "react-player";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CourseOverview = () => {
   const { userId } = useAuth();
@@ -15,6 +16,7 @@ const CourseOverview = () => {
   const [course, setCourse] = useState([]);
   const [purchase, setPurchase] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingCourse, setIsLoadingCourse] = useState(false);
 
   const courseId = path.split("/").pop();
 
@@ -24,10 +26,16 @@ const CourseOverview = () => {
 
   useEffect(() => {
     const getCourse = async () => {
-      const response = await axios.get(`/api/courses/${courseId}`);
-      const data = response.data;
-      setCourse(data.course);
-      setPurchase(data.purchase);
+      try {
+        setIsLoadingCourse(true);
+        const response = await axios.get(`/api/courses/${courseId}`);
+        const data = response.data;
+        setCourse(data.course);
+        setPurchase(data.purchase);
+        setIsLoadingCourse(false);
+      } catch (error) {
+        console.log("error fetching course by id ", error);
+      }
     };
 
     getCourse();
@@ -49,10 +57,33 @@ const CourseOverview = () => {
     }
   };
 
+  if (isLoadingCourse) {
+    return (
+      <div className="md:mt-5 md:px-10 xl:px-16 pb-16">
+        <div className="flex justify-center">
+          <Skeleton className="h-10 w-[200px] " />
+        </div>
+
+        <div className="flex gap-2 pb-5">
+          <Skeleton className="h-10 w-[60px] " />
+          <Skeleton className="h-10 w-[100px] " />
+        </div>
+        <div className="flex flex-col gap-2 pb-5">
+          <Skeleton className="h-10 w-[150px] " />
+          <Skeleton className="h-40 w-full " />
+        </div>
+        <div className="flex flex-col gap-2 pb-5">
+          <Skeleton className="h-10 w-[150px] " />
+          <Skeleton className="h-100 w-full " />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative">
       {!purchase && (
-        <div className="absolute top-0 left-0 w-full h-full bg-main-teal bg-opacity-10 backdrop-blur-sm flex justify-center items-center z-50">
+        <div className="absolute top-0 left-0 w-full h-full bg-main-teal bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
           <Button className="z-50" onClick={buyCourse}>
             {isLoading && <Loader2 className="animate-spin h-4 w-4" />} Buy this
             course

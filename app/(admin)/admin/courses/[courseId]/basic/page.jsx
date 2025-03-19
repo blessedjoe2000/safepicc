@@ -38,7 +38,7 @@ const CourseBasic = async ({ params }) => {
   const isCompleted = requiredFields.every(Boolean);
 
   return (
-    <div className="px-10">
+    <div className="lg:mx-20 md:mx-10 mx-5 sm:my-10 my-5">
       <AlertBanner
         isCompleted={isCompleted}
         missingFieldCount={missingFieldCount}

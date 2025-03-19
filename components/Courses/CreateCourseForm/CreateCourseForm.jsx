@@ -20,6 +20,7 @@ import toast from "react-hot-toast";
 import FileUploader from "@/components/FileUploader/FileUploader";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Title is required " }),
@@ -171,9 +172,16 @@ const CreateCourseForm = ({ categories }) => {
             )}
           />
 
-          <Button type="submit">
-            {isLoading && <Loader2 className=" animate-spin" />} Submit
-          </Button>
+          <div className="flex gap-5">
+            <Link href="/admin/courses">
+              <Button type="button" variant="outline">
+                Cancel
+              </Button>
+            </Link>
+            <Button type="submit">
+              {isLoading && <Loader2 className=" animate-spin" />} Submit
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

@@ -19,7 +19,7 @@ const Sidebar = () => {
           key={route.path}
           className={`flex items-center rounded-lg p-3 gap-4 ${
             pathname.startsWith(route.path)
-              ? "bg-main-teal hover:bg-main-teal/70"
+              ? "bg-main-teal hover:bg-main-teal/80"
               : "hover:bg-main-teal/20"
           }`}
         >
