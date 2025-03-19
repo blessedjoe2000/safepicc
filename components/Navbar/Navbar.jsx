@@ -16,14 +16,14 @@ const Navbar = () => {
   return (
     <div
       className="bg-black text-white
-     flex justify-around items-center py-2 "
+     flex justify-around items-center py-2 px-2"
     >
       <div className="md:hidden">
         <MenuDrawer />
       </div>
       <Logo />
 
-      <div className="md:flex justify-between gap-10 hidden ">
+      <div className="md:flex justify-between lg:gap-10 gap-5 hidden ">
         <Link href="/" className="hover:text-main-teal ">
           Home
         </Link>
@@ -54,7 +54,7 @@ const Navbar = () => {
           </Link>
         )}
       </div>
-      <div className=" ">
+      <div className="md:hidden">
         <AlignRight className="text-black" />
       </div>
     </div>
