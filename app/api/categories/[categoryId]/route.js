@@ -5,7 +5,12 @@ export async function GET(req, { params }) {
     const { categoryId } = params;
 
     if (!categoryId) {
-      return res.status(400).json({ error: "Category ID is required" });
+      return new Response(
+        JSON.stringify({ error: "Category ID is required" }),
+        {
+          status: 400,
+        }
+      );
     }
 
     const categories = await db.category.findMany({
