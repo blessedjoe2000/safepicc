@@ -26,10 +26,12 @@ export async function GET(req, { params }) {
 
     return new Response(JSON.stringify({ categories, courses }), {
       status: 200,
+      headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
     return new Response(JSON.stringify("Error fetching categories", error), {
       status: 500,
+      headers: { "Content-Type": "application/json" },
     });
   }
 }
