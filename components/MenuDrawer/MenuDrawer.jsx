@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { UserButton, useAuth } from "@clerk/nextjs";
+import { UserButton, useAuth, useUser } from "@clerk/nextjs";
 import {
   Sheet,
   SheetContent,
@@ -13,6 +13,7 @@ import { AlignLeft } from "lucide-react";
 
 const MenuDrawer = () => {
   const { isSignedIn } = useAuth();
+  const { user } = useUser();
 
   return (
     <div className="">
@@ -38,9 +39,11 @@ const MenuDrawer = () => {
               <Link href="/contact" className="hover:text-main-red">
                 <SheetClose>Contact Us</SheetClose>
               </Link>
-              <Link href="/admin/courses" className="hover:text-main-red">
-                <SheetClose>Admin</SheetClose>
-              </Link>
+              {user?.publicMetadata.isAdmin && (
+                <Link href="/admin/courses" className="hover:text-main-red">
+                  <SheetClose>Admin</SheetClose>
+                </Link>
+              )}
               <Link href="/courses" className="hover:text-main-red">
                 <SheetClose>Courses</SheetClose>
               </Link>

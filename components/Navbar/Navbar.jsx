@@ -1,6 +1,6 @@
 "use client";
 
-import { UserButton, useAuth } from "@clerk/nextjs";
+import { UserButton, useAuth, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
@@ -10,6 +10,9 @@ import { AlignRight } from "lucide-react";
 
 const Navbar = () => {
   const { isSignedIn } = useAuth();
+
+  const { user } = useUser();
+
   return (
     <div
       className="bg-black text-white
@@ -21,22 +24,24 @@ const Navbar = () => {
       <Logo />
 
       <div className="md:flex justify-between gap-10 hidden ">
-        <Link href="/" className="hover:text-main-teal/80 ">
+        <Link href="/" className="hover:text-main-teal ">
           Home
         </Link>
-        <Link href="/services" className="hover:text-main-teal/80">
+        <Link href="/services" className="hover:text-main-teal">
           Services
         </Link>
-        <Link href="/education" className="hover:text-main-teal/80">
+        <Link href="/education" className="hover:text-main-teal">
           Education
         </Link>
-        <Link href="/contact" className="hover:text-main-teal/80">
+        <Link href="/contact" className="hover:text-main-teal">
           Contact Us
         </Link>
-        <Link href="/admin/courses" className="hover:text-main-teal/80">
-          Admin
-        </Link>
-        <Link href="/courses" className="hover:text-main-teal/80">
+        {user?.publicMetadata.isAdmin && (
+          <Link href="/admin/courses" className="hover:text-main-teal">
+            Admin
+          </Link>
+        )}
+        <Link href="/courses" className="hover:text-main-teal">
           Courses
         </Link>
       </div>
