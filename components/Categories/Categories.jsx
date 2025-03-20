@@ -12,7 +12,7 @@ const Categories = ({ categories, selected }) => {
   };
 
   return (
-    <div className="flex flex-wrap justify-center gap-7 my-10 px-4">
+    <div className="flex flex-wrap justify-center md:gap-7 gap-5 my-10 px-4">
       <Button
         variant={selected === null ? "default" : "outline"}
         onClick={() => onClick(null)}

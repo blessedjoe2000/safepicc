@@ -16,14 +16,14 @@ const Navbar = () => {
   return (
     <div
       className="bg-black text-white
-     flex justify-around items-center py-2 px-2"
+     flex justify-around items-center gap-5 py-2 px-5"
     >
       <div className="md:hidden">
         <MenuDrawer />
       </div>
       <Logo />
 
-      <div className="md:flex justify-between lg:gap-10 gap-5 hidden ">
+      <div className="md:flex justify-between lg:gap-10 gap-2 hidden ">
         <Link href="/" className="hover:text-main-teal ">
           Home
         </Link>

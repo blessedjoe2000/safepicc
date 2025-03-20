@@ -27,17 +27,25 @@ const MenuDrawer = () => {
      flex flex-col gap-5 justify-around items-center py-2 mt-5 border-t-2 border-black"
           >
             <div className="flex flex-col justify-center items-center gap-5 my-5">
-              <Link href="/" className="hover:text-main-red ">
-                <SheetClose>Home</SheetClose>
+              <Link href="/" className="hover:text-main-red">
+                <SheetClose className="block w-full outline-none border-none">
+                  Home
+                </SheetClose>
               </Link>
               <Link href="/services" className="hover:text-main-red">
-                <SheetClose>Services</SheetClose>
+                <SheetClose className="block w-full outline-none border-none">
+                  Services
+                </SheetClose>
               </Link>
               <Link href="/education" className="hover:text-main-red">
-                <SheetClose>Education</SheetClose>
+                <SheetClose className="block w-full outline-none border-none">
+                  Education
+                </SheetClose>
               </Link>
               <Link href="/contact" className="hover:text-main-red">
-                <SheetClose>Contact Us</SheetClose>
+                <SheetClose className="block w-full outline-none border-none">
+                  Contact Us
+                </SheetClose>
               </Link>
               {user?.publicMetadata.isAdmin && (
                 <Link href="/admin/courses" className="hover:text-main-red">
@@ -45,7 +53,9 @@ const MenuDrawer = () => {
                 </Link>
               )}
               <Link href="/courses" className="hover:text-main-red">
-                <SheetClose>Courses</SheetClose>
+                <SheetClose className="block w-full outline-none border-none">
+                  Courses
+                </SheetClose>
               </Link>
             </div>
             <div>
@@ -54,7 +64,9 @@ const MenuDrawer = () => {
               ) : (
                 <Link href="/sign-in">
                   <Button>
-                    <SheetClose>Sign in</SheetClose>
+                    <SheetClose className="block w-full outline-none border-none">
+                      Sign in
+                    </SheetClose>
                   </Button>
                 </Link>
               )}

@@ -7,7 +7,7 @@ const Logo = () => {
       <Image
         src="https://s4sya57j5i.ufs.sh/f/1Wr3ZpR6uMW3HxvIjcbqjPmTLl4WEH2Qo6iaCeJsdzYxbuk0"
         alt="safe picc logo"
-        width={250}
+        width={300}
         height={150}
       />
     </Link>
