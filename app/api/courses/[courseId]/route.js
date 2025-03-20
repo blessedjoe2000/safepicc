@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
+export const dynamic = "force-dynamic";
 
 export async function PATCH(req, { params }) {
   const { courseId } = params;
