@@ -1,8 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = []
-  // Add this line to disable prepared statements:
-  engineType      = "binary"
+  provider = "prisma-client-js"
 }
 
 datasource db {
