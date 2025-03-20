@@ -15,7 +15,7 @@ const VolunteeringHeader = () => {
       </div>
       <div className="video-content">
         <div className="bg-black/20 sm:p-5 p-2 sm:mt-5 mt-2 ">
-          <h1 className=" welcome-heading font-robotoSlab ">
+          <h1 className="image-heading font-robotoSlab ">
             Community Volunteering Opportunities
           </h1>
         </div>

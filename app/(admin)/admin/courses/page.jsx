@@ -35,14 +35,14 @@ const AdminCourses = () => {
   if (isLoading) {
     return (
       <div className="md:mt-5 md:px-10 xl:px-16 pb-16">
-        <div className="flex justify-end pb-5">
+        <div className="flex justify-end pb-5 p-5">
           <Skeleton className="h-10 w-[200px] " />
         </div>
-        <div className="pb-5">
+        <div className="pb-5 px-5">
           <Skeleton className="h-10 w-1/3 " />
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 px-5">
           {[...Array(6)].map((_, i) => (
             <Skeleton key={i} className="h-10 w-full" />
           ))}

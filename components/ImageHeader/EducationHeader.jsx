@@ -14,8 +14,8 @@ const EducationHeader = () => {
         />
       </div>
       <div className="video-content">
-        <div className="bg-black/20 sm:p-5 p-2 sm:mt-5 mt-2 ">
-          <h1 className=" welcome-heading font-robotoSlab ">Education</h1>
+        <div className="bg-black/20 sm:p-5 p-2 sm:mt-5 mt-2 sm:mb-10 mb-5">
+          <h1 className="image-heading font-robotoSlab ">Education</h1>
         </div>
       </div>
     </div>

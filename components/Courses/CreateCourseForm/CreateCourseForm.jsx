@@ -132,7 +132,7 @@ const CreateCourseForm = ({ categories }) => {
                     value={field.value || ""}
                     onChange={(url) => field.onChange(url)}
                     endpoint="courseImage"
-                    page="Create Course"
+                    page="image"
                   />
                 </FormControl>
                 <FormMessage />
@@ -150,7 +150,7 @@ const CreateCourseForm = ({ categories }) => {
                     value={field.value || ""}
                     onChange={(url) => field.onChange(url)}
                     endpoint="courseVideo"
-                    page="Create Course"
+                    page="video"
                   />
                 </FormControl>
                 <FormMessage />

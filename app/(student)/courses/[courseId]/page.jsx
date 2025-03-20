@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
-import { redirect, usePathname } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
@@ -11,7 +11,8 @@ import ReactPlayer from "react-player";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const CourseOverview = () => {
-  const { userId } = useAuth();
+  const { userId, isLoaded } = useAuth();
+  const router = useRouter();
   const path = usePathname();
   const [course, setCourse] = useState([]);
   const [purchase, setPurchase] = useState([]);
@@ -20,9 +21,11 @@ const CourseOverview = () => {
 
   const courseId = path.split("/").pop();
 
-  if (!userId) {
-    return redirect("/sign-in");
-  }
+  useEffect(() => {
+    if (isLoaded && !userId) {
+      router.push("/sign-in"); // Use router.push instead of redirect()
+    }
+  }, [userId, isLoaded, router]);
 
   useEffect(() => {
     const getCourse = async () => {
@@ -39,10 +42,13 @@ const CourseOverview = () => {
     };
 
     getCourse();
-  }, []);
+  }, [courseId]);
+
+  if (!isLoaded) return null;
 
   if (!course) {
-    redirect("/courses");
+    router.push("/courses");
+    return null;
   }
 
   const buyCourse = async () => {
@@ -60,19 +66,19 @@ const CourseOverview = () => {
   if (isLoadingCourse) {
     return (
       <div className="md:mt-5 md:px-10 xl:px-16 pb-16">
-        <div className="flex justify-center">
+        <div className="flex justify-center p-5">
           <Skeleton className="h-10 w-[200px] " />
         </div>
 
-        <div className="flex gap-2 pb-5">
+        <div className="flex gap-2 p-5">
           <Skeleton className="h-10 w-[60px] " />
           <Skeleton className="h-10 w-[100px] " />
         </div>
-        <div className="flex flex-col gap-2 pb-5">
+        <div className="flex flex-col gap-2 p-5">
           <Skeleton className="h-10 w-[150px] " />
           <Skeleton className="h-40 w-full " />
         </div>
-        <div className="flex flex-col gap-2 pb-5">
+        <div className="flex flex-col gap-2 p-5">
           <Skeleton className="h-10 w-[150px] " />
           <Skeleton className="h-100 w-full " />
         </div>

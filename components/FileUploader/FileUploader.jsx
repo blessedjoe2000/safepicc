@@ -4,10 +4,10 @@ import { UploadDropzone } from "@/lib/uploadthing";
 import Image from "next/image";
 import toast from "react-hot-toast";
 
-const FileUploader = ({ value, onChange, endpoint }) => {
+const FileUploader = ({ value, onChange, endpoint, page }) => {
   return (
-    <div className=" flex items-center gap-2">
-      {value && (
+    <div className=" flex sm:flex-row flex-col items-center gap-2 px-5">
+      {page === "image" && value !== "" && (
         <Image
           src={value}
           alt="Uploaded file"
@@ -15,6 +15,10 @@ const FileUploader = ({ value, onChange, endpoint }) => {
           height={200}
           className="w-[280px] h-[200px] object-cover rounded-lg"
         />
+      )}
+
+      {page === "video" && value !== "" && (
+        <p className="text-main-green">Video uploaded successfully</p>
       )}
 
       <UploadDropzone

@@ -89,7 +89,7 @@ const EditCourseForm = ({ course, categories, isCompleted }) => {
 
   return (
     <div className="">
-      <div className="flex justify-between items-center">
+      <div className="flex sm:flex-row flex-col justify-between  gap-5">
         <p className="text-lg font-semi-bold">
           Enter the basic information of your course
         </p>
@@ -198,7 +198,7 @@ const EditCourseForm = ({ course, categories, isCompleted }) => {
                     value={field.value || ""}
                     onChange={(url) => field.onChange(url)}
                     endpoint="courseImage"
-                    page="Edit Course"
+                    page="image"
                   />
                 </FormControl>
                 <FormMessage />
@@ -219,7 +219,7 @@ const EditCourseForm = ({ course, categories, isCompleted }) => {
                     value={field.value || ""}
                     onChange={(url) => field.onChange(url)}
                     endpoint="courseVideo"
-                    page="Edit Course"
+                    page="video"
                   />
                 </FormControl>
                 <FormMessage />
@@ -227,12 +227,13 @@ const EditCourseForm = ({ course, categories, isCompleted }) => {
             )}
           />
           {course?.videoUrl && (
-            <div className="my-5">
+            <div className="my-5 flex justify-center">
               <ReactPlayer
                 url={course.videoUrl}
                 controls
-                width="600px"
+                width="100%" // Full width on small screens
                 height="100%"
+                className="max-w-[600px]" // Restricts to 600px on larger screens
               />
             </div>
           )}

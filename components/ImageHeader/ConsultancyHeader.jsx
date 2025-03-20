@@ -15,7 +15,7 @@ const ConsultancyHeader = () => {
       </div>
       <div className="video-content">
         <div className="bg-black/20 sm:p-5 p-2 sm:mt-5 mt-2 ">
-          <h1 className=" welcome-heading font-robotoSlab ">Consultancy</h1>
+          <h1 className="image-heading font-robotoSlab ">Consultancy</h1>
         </div>
       </div>
     </div>
