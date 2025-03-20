@@ -9,6 +9,8 @@ const ServicesVideo = () => {
         autoPlay
         loop
         muted
+        playsInline
+        controls={false}
       />
       <div className="video-content">
         <h1 className=" welcome-heading font-robotoSlab ">Our Services</h1>
