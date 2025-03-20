@@ -1,5 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
+  // Add this line to disable prepared statements (required for PgBouncer):
+  engineType = "binary"
 }
 
 datasource db {
