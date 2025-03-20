@@ -139,6 +139,7 @@ h3 {
 
 .homevideo {
   width: 100%;
+  /* height: 100vh; */
   position: relative;
   display: flex;
   justify-content: center;
@@ -148,7 +149,7 @@ h3 {
 
 video {
   width: 100%;
-  /* height: 100%; */
+  /* height: 100vh; */
   object-fit: contain;
 }
 
@@ -156,6 +157,7 @@ video {
   /* font-size: clamp(2.5rem, 5vw, 5rem); */
   font-weight: 700;
   font-size: 5rem;
+  margin-top: 2rem;
 
   @media (max-width: 1024px) {
     font-size: 3.5rem;
@@ -176,8 +178,8 @@ video {
     line-height: 2rem;
   }
   @media (max-width: 640px) {
-    font-size: 1.2rem;
-    line-height: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.2rem;
   }
 }
 
@@ -194,7 +196,7 @@ video {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
-  left: 0;
+  /* left: 0; */
 }
 
 span {

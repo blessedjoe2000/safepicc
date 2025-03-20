@@ -12,7 +12,7 @@ const ServicesVideo = () => {
       />
       <div className="video-content">
         <h1 className=" welcome-heading font-robotoSlab ">Our Services</h1>
-        <div className="bg-black/20 p-5 mt-5 ">
+        <div className="bg-black/20 sm:p-5 p-2 sm:mt-5 mt-2 sm:mb-10 mb-5 ">
           <p className="welcome-text ">
             We provide Trusted Vascular Access Care, delivers expert PICC line,
             Midline, and Peripheral IV insertions, ensuring safe, efficient, and
