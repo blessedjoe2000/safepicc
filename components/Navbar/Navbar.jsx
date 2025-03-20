@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <div
       className="bg-black text-white
-     flex justify-around items-center gap-5 py-2 px-5"
+     flex justify-around items-center gap-5 py-2 px-2"
     >
       <div className="md:hidden">
         <MenuDrawer />
