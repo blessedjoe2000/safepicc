@@ -12,7 +12,7 @@ const Footer = () => {
         </div>
         <div className="flex flex-col justify-center items-center gap-5">
           <Link href="/contact">Contact Us</Link>
-          <Link href="/consultancy">Consent</Link>
+          <Link href="/consent">Consent</Link>
           <Link href="/collaborate">Collaboration</Link>
         </div>
         <div className="flex flex-col justify-center items-center gap-5">
