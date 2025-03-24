@@ -20,9 +20,9 @@ const AdminLayout = ({ children }) => {
     return null;
   }
   return (
-    <div className="h-full flex flex-col">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="flex-1 ">{children}</div>
+      <main className="flex-grow">{children}</main>
       <Footer />
     </div>
   );
