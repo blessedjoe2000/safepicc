@@ -2,8 +2,8 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAuth } from "@clerk/nextjs";
-import { redirect, usePathname, useRouter } from "next/navigation";
+import { useAuth, useUser } from "@clerk/nextjs";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
@@ -12,6 +12,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const CourseOverview = () => {
   const { userId, isLoaded } = useAuth();
+  const { user } = useUser();
+
   const router = useRouter();
   const path = usePathname();
   const [course, setCourse] = useState([]);
@@ -23,7 +25,7 @@ const CourseOverview = () => {
 
   useEffect(() => {
     if (isLoaded && !userId) {
-      router.push("/sign-in"); // Use router.push instead of redirect()
+      router.push("/sign-in");
     }
   }, [userId, isLoaded, router]);
 
@@ -60,6 +62,18 @@ const CourseOverview = () => {
     } catch (error) {
       console.log("error checkout course", error);
       toast.error("Something went wrong");
+    }
+  };
+
+  const handleVideoComplete = async () => {
+    try {
+      await axios.post(`/api/courses/${courseId}/complete`, { user });
+      toast.success(
+        "Course completed. Your certificate will be sent to your email shortly."
+      );
+    } catch (error) {
+      console.error("Error sending completion event", error);
+      toast.error("Failed to notify admin.");
     }
   };
 
@@ -115,6 +129,7 @@ const CourseOverview = () => {
                 controls
                 width="100%"
                 height="100%"
+                onEnded={handleVideoComplete}
               />
             </div>
           </div>

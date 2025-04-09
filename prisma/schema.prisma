@@ -23,8 +23,9 @@ model Course {
   category   Category   @relation(fields: [categoryId], references: [id])
   purchases  Purchase[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  CourseCompletion CourseCompletion[]
 
   @@index([categoryId])
 }
@@ -53,4 +54,15 @@ model StripeCustomer {
   stripeCustomerId String   @unique
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+}
+
+model CourseCompletion {
+  id          String   @id @default(uuid())
+  studentId   String
+  courseId    String
+  completedAt DateTime @default(now())
+
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@unique([studentId, courseId])
 }
