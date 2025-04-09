@@ -67,10 +67,16 @@ const CourseOverview = () => {
 
   const handleVideoComplete = async () => {
     try {
-      await axios.post(`/api/courses/${courseId}/complete`, { user });
-      toast.success(
-        "Course completed. Your certificate will be sent to your email shortly."
-      );
+      const response = await axios.post(`/api/courses/${courseId}/complete`, {
+        user,
+      });
+      if (response.data?.success) {
+        toast.success(
+          "Course completed. Your certificate will be sent to your email shortly."
+        );
+      } else if (response.data?.alreadyCompleted) {
+        toast.success("Course completed.");
+      }
     } catch (error) {
       console.error("Error sending completion event", error);
       toast.error("Failed to notify admin.");
