@@ -5,6 +5,8 @@ import Categories from "@/components/Categories/Categories";
 import CourseCard from "@/components/Courses/CourseCard/CourseCard";
 import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const StudentCourses = () => {
   const [categories, setCategories] = useState([]);
@@ -48,6 +50,9 @@ const StudentCourses = () => {
 
   return (
     <div className="md:mt-5 md:px-10 xl:px-16 pb-16">
+      <Link href="/appointment" className="">
+        <Button>Book an appointment for a live class</Button>
+      </Link>
       <Categories categories={categories} selected={null} />
       {!courses ||
         (courses.length === 0 && (

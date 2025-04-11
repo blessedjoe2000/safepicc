@@ -5,6 +5,7 @@ import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
+import Sidebar from "@/components/Sidebar.jsx/Sidebar";
 
 const AdminLayout = ({ children }) => {
   const { userId, isLoaded } = useAuth();
@@ -22,7 +23,11 @@ const AdminLayout = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="flex-grow">{children}</main>
+      <div className="flex-1 flex">
+        <Sidebar />
+        <main className="flex-grow">{children}</main>
+      </div>
+
       <Footer />
     </div>
   );
