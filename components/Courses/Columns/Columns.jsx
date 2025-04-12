@@ -52,3 +52,54 @@ export const columns = [
     },
   },
 ];
+
+export const appointment_columns = [
+  {
+    accessorKey: "user.name",
+    header: "Name",
+  },
+  {
+    accessorKey: "user.email",
+    header: "Email",
+  },
+  {
+    accessorKey: "title",
+    header: "Course Title",
+  },
+  {
+    accessorKey: "startTime",
+    header: "Date & Time",
+    cell: ({ row }) => {
+      const dateTimeISO = row.original.startTime;
+      const dateObj = new Date(dateTimeISO);
+
+      const formattedDate = dateObj.toLocaleDateString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "2-digit",
+      });
+
+      const formattedTime = dateObj.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+
+      return <p>{`${formattedDate} ${formattedTime}`}</p>;
+    },
+  },
+  {
+    header: "Payment Status",
+    accessorKey: "status",
+    cell: ({ row }) => {
+      const status = row.original.status;
+      return (
+        <Badge
+          className={status === "ACCEPTED" ? "bg-main-green" : "bg-main-red"}
+        >
+          {status}
+        </Badge>
+      );
+    },
+  },
+];

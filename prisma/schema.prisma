@@ -66,12 +66,3 @@ model CourseCompletion {
 
   @@unique([studentId, courseId])
 }
-
-model Appointment {
-  id          String   @id @default(cuid())
-  name        String
-  email       String
-  courseTitle String
-  bookingTime DateTime
-  createdAt   DateTime @default(now())
-}

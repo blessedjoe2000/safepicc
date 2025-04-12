@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
-import { Sidebar } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -31,20 +30,6 @@ const AdminCourses = () => {
       }
     };
     getAllCourses();
-
-    const getBookings = async () => {
-      const calApiKey = process.env.NEXT_PUBLIC_CAL_API_KEY;
-      try {
-        const response = await axios.get(
-          `https://api.cal.com/v1/bookings?apiKey=${calApiKey}`
-        );
-        console.log("booking  :>> ", response.data);
-      } catch (error) {
-        console.log("error fetching bookings :>> ", error);
-      }
-    };
-
-    getBookings();
   }, []);
 
   if (isLoading) {

@@ -19,35 +19,6 @@ export async function POST(req) {
       });
     }
 
-    // const session = event.data.object;
-
-    // console.log("session :>> ", session);
-
-    // const customerId = session?.metadata?.customerId;
-    // const courseId = session?.metadata?.courseId;
-
-    // if (event.type === "checkout.session.completed") {
-    //   if (!customerId || !courseId) {
-    //     return new Response(JSON.stringify(`missing metadata:`), {
-    //       status: 400,
-    //     });
-    //   }
-
-    //   await db.purchase.create({
-    //     data: {
-    //       courseId,
-    //       customerId,
-    //     },
-    //   });
-    // } else {
-    //   return new Response(
-    //     JSON.stringify(`Unhandled event type: ${event.type}`),
-    //     {
-    //       status: 400,
-    //     }
-    //   );
-    // }
-
     //Handle the event
     switch (event.type) {
       case "checkout.session.completed":
