@@ -31,7 +31,7 @@ export const columns = [
     cell: ({ row }) => {
       const isPublished = row.original.isPublished || false;
       return (
-        <Badge className="bg-main-teal">
+        <Badge className={isPublished ? "bg-main-green" : "bg-main-red"}>
           {isPublished ? "Published" : "Unpublished"}
         </Badge>
       );
