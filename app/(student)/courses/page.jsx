@@ -50,9 +50,9 @@ const StudentCourses = () => {
 
   return (
     <div className="md:mt-5 md:px-10 xl:px-16 pb-16">
-      <Link href="/appointment" className="">
+      <Link href="/registration" className="">
         <Button className="bg-black mt-10">
-          Book appointment for live course
+          Click here to register for live class
         </Button>
       </Link>
       <Categories categories={categories} selected={null} />

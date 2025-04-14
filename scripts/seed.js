@@ -5,10 +5,7 @@ async function main() {
   try {
     const categories = [
       {
-        name: "Diabetics",
-      },
-      {
-        name: "Fitness",
+        name: "Vascular Access",
       },
       {
         name: "Others",

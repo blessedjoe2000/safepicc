@@ -11,8 +11,8 @@ const Sidebar = () => {
     { icon: <MonitorPlay />, label: "Courses", path: "/admin/courses" },
     {
       icon: <CalendarDays />,
-      label: "Appointments",
-      path: "/admin/appointment",
+      label: "Registration",
+      path: "/admin/registration",
     },
   ];
   return (

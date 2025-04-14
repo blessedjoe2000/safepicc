@@ -4,7 +4,7 @@ import Calender from "@/components/Calender/Calender";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
-const Appointment = () => {
+const Registration = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   const calConfigData = [
@@ -58,4 +58,4 @@ const Appointment = () => {
   );
 };
 
-export default Appointment;
+export default Registration;
