@@ -1,13 +1,13 @@
 "use client";
 
-import { appointment_columns } from "@/components/Courses/Columns/Columns";
+import { registration_columns } from "@/components/Courses/Columns/Columns";
 import { DataTable } from "@/components/Courses/DataTable/DataTable";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const Appointment = () => {
+const Registration = () => {
   const { userId } = useAuth();
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,8 +35,6 @@ const Appointment = () => {
     getBookings();
   }, []);
 
-  console.log("bookings :>> ", bookings);
-
   if (isLoading) {
     return (
       <div className="md:mt-5 md:px-10 xl:px-16 pb-16">
@@ -61,10 +59,10 @@ const Appointment = () => {
       {bookings.length === 0 && <div>No Booking available</div>}
 
       <div className="">
-        <DataTable columns={appointment_columns} data={bookings} />
+        <DataTable columns={registration_columns} data={bookings} />
       </div>
     </div>
   );
 };
 
-export default Appointment;
+export default Registration;

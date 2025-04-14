@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarDays, MonitorPlay } from "lucide-react";
+import { CalendarRange, MonitorPlay } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -10,7 +10,7 @@ const Sidebar = () => {
   const sidebarRoute = [
     { icon: <MonitorPlay />, label: "Courses", path: "/admin/courses" },
     {
-      icon: <CalendarDays />,
+      icon: <CalendarRange />,
       label: "Registration",
       path: "/admin/registration",
     },

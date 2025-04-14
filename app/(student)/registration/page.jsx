@@ -9,12 +9,12 @@ const Registration = () => {
 
   const calConfigData = [
     {
-      namespace: "Intravenous-iv-therapy-class",
-      calLink: "joseph-ugiagbe-s5r5io/intravenous-iv-therapy-class",
+      namespace: "Intravenous-IV-Therapy-Class",
+      calLink: "safe-picc-hb0wap/intravenous-iv-therapy-class",
     },
     {
-      namespace: "Picc-and-midline-insertion-class",
-      calLink: "joseph-ugiagbe-s5r5io/picc-and-midline-insertion-class",
+      namespace: "Picc-and-Midline-Insertion-Class",
+      calLink: "safe-picc-hb0wap/picc-and-midline-insertion-class",
     },
     // add more course configs here
   ];

@@ -53,13 +53,13 @@ export const columns = [
   },
 ];
 
-export const appointment_columns = [
+export const registration_columns = [
   {
-    accessorKey: "user.name",
+    accessorKey: "responses.name",
     header: "Name",
   },
   {
-    accessorKey: "user.email",
+    accessorKey: "responses.email",
     header: "Email",
   },
   {

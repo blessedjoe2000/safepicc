@@ -33,6 +33,7 @@ const StudentCourses = () => {
   if (isLoading) {
     return (
       <div className="md:mt-5 md:px-10 xl:px-16 pb-16">
+        <Skeleton className="h-10 w-1/4 rounded-md my-10" />
         <div className="flex gap-3 justify-center p-5">
           {[...Array(5)].map((_, i) => (
             <Skeleton key={i} className="h-10 w-[120px] rounded-md" />
