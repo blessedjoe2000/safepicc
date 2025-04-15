@@ -53,7 +53,7 @@ const StudentCourses = () => {
     <div className="md:mt-5 md:px-10 xl:px-16 pb-16">
       <Link href="/registration" className="">
         <Button className="bg-black mt-10">
-          Click here to register for live class
+          Click here to register for a live class
         </Button>
       </Link>
       <Categories categories={categories} selected={null} />
