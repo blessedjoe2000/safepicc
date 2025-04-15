@@ -37,12 +37,6 @@ const MenuDrawer = () => {
                   Services
                 </SheetClose>
               </Link>
-              <Link href="/consent" className="hover:text-main-red">
-                <SheetClose className="block w-full outline-none border-none">
-                  Consent
-                </SheetClose>
-              </Link>
-
               {user?.publicMetadata.isAdmin && (
                 <Link href="/admin/courses" className="hover:text-main-red">
                   <SheetClose>Admin</SheetClose>
@@ -56,6 +50,11 @@ const MenuDrawer = () => {
               <Link href="/contact" className="hover:text-main-red">
                 <SheetClose className="block w-full outline-none border-none">
                   Contact Us
+                </SheetClose>
+              </Link>
+              <Link href="/consent" className="hover:text-main-red">
+                <SheetClose className="block w-full outline-none border-none">
+                  Consent
                 </SheetClose>
               </Link>
             </div>

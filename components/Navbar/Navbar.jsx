@@ -30,9 +30,6 @@ const Navbar = () => {
         <Link href="/services" className="hover:text-main-teal">
           Services
         </Link>
-        <Link href="/consent" className="hover:text-main-teal">
-          Consent
-        </Link>
 
         {user?.publicMetadata.isAdmin && (
           <Link href="/admin/courses" className="hover:text-main-teal">
@@ -44,6 +41,9 @@ const Navbar = () => {
         </Link>
         <Link href="/contact" className="hover:text-main-teal">
           Contact Us
+        </Link>
+        <Link href="/consent" className="hover:text-main-teal">
+          Consent
         </Link>
       </div>
       <div className="md:flex hidden">
