@@ -2,8 +2,6 @@ import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-console.log("stripe :>> ", stripe);
-
 export async function POST(req, { params }) {
   const { courseId } = params;
 
@@ -32,20 +30,23 @@ export async function POST(req, { params }) {
       },
     });
 
-    // console.log("purchase :>> ", purchase);
-
     if (purchase) {
       return new Response(JSON.stringify("error checking out "), {
         status: 400,
       });
     }
 
+    await db.purchase.create({
+      data: {
+        courseId,
+        customerId: user.id,
+      },
+    });
+
     let stripeCustomer = await db.stripeCustomer.findUnique({
       where: { customerId: user.id },
       select: { stripeCustomerId: true },
     });
-
-    // console.log("stripeCustomer :>> ", stripeCustomer);
 
     if (!stripeCustomer) {
       const customer = await stripe.customers.create({
@@ -80,8 +81,6 @@ export async function POST(req, { params }) {
       },
     ];
 
-    // console.log("line_items :>> ", line_items);
-
     const session = await stripe.checkout.sessions.create({
       customer: stripeCustomer.stripeCustomerId,
       payment_method_types: ["card"],
@@ -94,8 +93,6 @@ export async function POST(req, { params }) {
         customerId: user.id,
       },
     });
-
-    // console.log("session :>> ", session);
 
     return new Response(JSON.stringify({ url: session.url }), {
       status: 200,

@@ -109,7 +109,7 @@ const CourseOverview = () => {
   return (
     <div className="relative">
       {!purchase && (
-        <div className="absolute top-0 left-0 w-full h-full bg-main-teal bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
+        <div className="absolute top-0 left-0 w-full h-full bg-main-teal bg-opacity-80 backdrop-blur-sm flex justify-center items-center z-50">
           <Button className="z-50" onClick={buyCourse}>
             {isLoading && <Loader2 className="animate-spin h-4 w-4" />} Buy this
             course
