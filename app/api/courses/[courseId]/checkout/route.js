@@ -36,13 +36,6 @@ export async function POST(req, { params }) {
       });
     }
 
-    await db.purchase.create({
-      data: {
-        courseId,
-        customerId: user.id,
-      },
-    });
-
     let stripeCustomer = await db.stripeCustomer.findUnique({
       where: { customerId: user.id },
       select: { stripeCustomerId: true },

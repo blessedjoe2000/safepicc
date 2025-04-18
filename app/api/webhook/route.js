@@ -14,7 +14,7 @@ export async function POST(req) {
     try {
       event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
     } catch (error) {
-      return new Response(JSON.stringify(`Webhook Error: ${error.message}`), {
+      return new Response(JSON.stringify(`Webhook Error: ${error}`), {
         status: 400,
       });
     }
@@ -33,12 +33,20 @@ export async function POST(req) {
           });
         }
 
-        await db.purchase.create({
-          data: {
-            courseId,
-            customerId,
+        const existingPurchase = await db.purchase.findUnique({
+          where: {
+            customerId_courseId: { customerId, courseId },
           },
         });
+
+        if (!existingPurchase) {
+          await db.purchase.create({
+            data: {
+              courseId,
+              customerId,
+            },
+          });
+        }
 
         break;
       // ... handle other event types

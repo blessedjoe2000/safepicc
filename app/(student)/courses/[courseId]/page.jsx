@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth, useUser } from "@clerk/nextjs";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
@@ -13,6 +13,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const CourseOverview = () => {
   const { userId, isLoaded } = useAuth();
   const { user } = useUser();
+  const searchParams = useSearchParams();
 
   const router = useRouter();
   const path = usePathname();
@@ -20,6 +21,9 @@ const CourseOverview = () => {
   const [purchase, setPurchase] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingCourse, setIsLoadingCourse] = useState(false);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
+  const [hasPurchased, setHasPurchased] = useState(false);
 
   const courseId = path.split("/").pop();
 
@@ -30,6 +34,10 @@ const CourseOverview = () => {
   }, [userId, isLoaded, router]);
 
   useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
     const getCourse = async () => {
       try {
         setIsLoadingCourse(true);
@@ -37,6 +45,7 @@ const CourseOverview = () => {
         const data = response.data;
         setCourse(data.course);
         setPurchase(data.purchase);
+        setHasPurchased(!!data.purchase);
         setIsLoadingCourse(false);
       } catch (error) {
         console.log("error fetching course by id ", error);
@@ -46,12 +55,33 @@ const CourseOverview = () => {
     getCourse();
   }, [courseId]);
 
-  if (!isLoaded) return null;
+  useEffect(() => {
+    if (hasMounted && !isLoadingCourse && !course?.id) {
+      router.push("/courses");
+    }
+  }, [course?.id, isLoadingCourse, router]);
 
-  if (!course) {
-    router.push("/courses");
-    return null;
-  }
+  useEffect(() => {
+    const successParam = searchParams.get("success");
+    if (successParam === "true") {
+      setPaymentSuccess(true);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    const confirmPayment = async () => {
+      if (paymentSuccess) {
+        try {
+          await axios.post(`/api/courses/${courseId}/update-purchase`);
+          setHasPurchased(true);
+        } catch (error) {
+          console.error("Error verifying payment", error);
+        }
+      }
+    };
+
+    confirmPayment();
+  }, [paymentSuccess, hasPurchased]);
 
   const buyCourse = async () => {
     try {
@@ -83,7 +113,9 @@ const CourseOverview = () => {
     }
   };
 
-  if (isLoadingCourse) {
+  if (!hasMounted) return null;
+
+  if (isLoaded && isLoadingCourse) {
     return (
       <div className="md:mt-5 md:px-10 xl:px-16 pb-16">
         <div className="flex justify-center p-5">
@@ -108,7 +140,7 @@ const CourseOverview = () => {
 
   return (
     <div className="relative">
-      {!purchase && (
+      {!hasPurchased && (
         <div className="absolute top-0 left-0 w-full h-full bg-main-teal bg-opacity-80 backdrop-blur-sm flex justify-center items-center z-50">
           <Button className="z-50" onClick={buyCourse}>
             {isLoading && <Loader2 className="animate-spin h-4 w-4" />} Buy this
